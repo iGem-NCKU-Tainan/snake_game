@@ -1,5 +1,56 @@
+
+var players = [ {"name":"Jane", "rank":1, "team":"ncku", "score":130},{"name":"Will", "rank":2, "team":"ncku","score":1000}];
+
 $( document ).ready(function() {
-  /*  按鍵的設定  */
+
+  /* Ajax */ 
+  
+  // Update data
+  $.ajax({
+    type: "POST",
+    url: "./update/",
+    data: JSON.stringify(players)
+  })
+    .done(function(data) {
+      console.log(data);
+    });
+
+  // csrf code fron django doc
+
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  var csrftoken = getCookie('csrftoken');
+  function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+
+
+
+});
+
+/* Snake Game */
+/*  按鍵的設定  */
 const key_left=37
 const key_up=38
 const key_right=39
@@ -13,7 +64,7 @@ var ctx=canvas.getContext("2d")
 
 function gameStart(){
     document.getElementById('snakeForm').style.display="none";
-    new beforeGame
+    new game
 }
 
 class boforeGame2{
@@ -64,11 +115,11 @@ class beforeGame{
     }
 
     adding({x,y,width=10,height=10,color='#FF7744'}){
-	ctx.fillStyle = color
-	ctx.fillRect(x, y, width, height)
-	ctx.lineWidth = 1
+  ctx.fillStyle = color
+  ctx.fillRect(x, y, width, height)
+  ctx.lineWidth = 1
     ctx.strokeStyle='#FFFFFF'
-	ctx.strokeRect(x, y, width, height)
+  ctx.strokeRect(x, y, width, height)
     }
 
 }
@@ -205,47 +256,3 @@ class game{
             }
         }
 }
-  alert("static is ok");
-  var players = [ {"name":"Jane", "rank":1, "team":"ncku", "score":130},{"name":"Will", "rank":2, "team":"ncku","score":1000}];
-  $.ajax({
-    type: "POST",
-    url: "./update/",
-    data: JSON.stringify(players)
-  })
-    .done(function(data) {
-      console.log(data);
-    });
-
-    // csrf code fron django doc
-
-    function getCookie(name) {
-      var cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-          var cookie = cookies[i].trim();
-          // Does this cookie string begin with the name we want?
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-        }
-      }
-      return cookieValue;
-    }
-    var csrftoken = getCookie('csrftoken');
-    function csrfSafeMethod(method) {
-          // these HTTP methods do not require CSRF protection
-      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-    $.ajaxSetup({
-      beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-          xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-      }
-    });
-
-
-
-});
