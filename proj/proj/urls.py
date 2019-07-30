@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app.views import snake_game, update
+from app.views import snake_game, get_data, update
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('igemNCKU/', snake_game),
+    path('igemNCKU/get_data/', get_data),
     path('igemNCKU/update/', update),
 ]

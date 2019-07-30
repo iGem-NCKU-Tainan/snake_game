@@ -1,10 +1,25 @@
 
-var players = [ {"name":"Jane", "rank":1, "team":"ncku", "score":130},{"name":"Will", "rank":2, "team":"ncku","score":1000}];
+var players = [];
 
 $( document ).ready(function() {
 
   /* Ajax */ 
-  
+  /* get player data */
+  $.ajax({
+    type: "GET",
+    url: "./get_data/",
+    dataType: 'json'
+  })
+    .done(function(data) {
+      alert("success");
+      data.forEach(function(element) {
+        players.push(element.fields)
+      });
+      console.log(players)
+    })
+    .fail(function() {
+          alert( "error" );
+    });
   // Update data
   $.ajax({
     type: "POST",
