@@ -1,8 +1,40 @@
-
 var players = [];
-
+              // [{"name":"test", "team":"ncku", "score":0, "rank":1},
+              //   {"name":"test", "team":"ncku", "score":0, "rank":1},
+              //   ....]
+var curr_player = {}
+                // {"name":"test", "team":"ncku", "score":0};
+var change = false;
 $( document ).ready(function() {
-
+  /*Compare*/
+  
+  $("#snakeButton").click(function() {
+    // if(players.length<10){
+    //   players.push({"name":"", "team":"", "score":-1, "rank":players.length+1});
+    // }
+    for(let i=players.length-1;i>=0;i--){
+      console.log(i);
+      console.log(players.length);
+      if(curr_player.score>players[i].score){
+        change = true;
+        if(i!=9){
+          players[i+1] = players[i];
+        }
+        players[i].name = curr_player.name;
+        players[i].team = curr_player.team;
+        players[i].score = curr_player.score;
+      }
+    }
+    if(players.length<10 && !change){
+      change = true;
+      players.push({"name":curr_player.name, "team":curr_player.team, "score":curr_player.score, "rank":players.length+1});
+    }
+    console.log(change);
+    if(change){
+      updateData(players);
+    }
+    console.log(players);
+  });
   /* Ajax */ 
   /* get player data */
   $.ajax({
@@ -11,7 +43,6 @@ $( document ).ready(function() {
     dataType: 'json'
   })
     .done(function(data) {
-      alert("success");
       data.forEach(function(element) {
         players.push(element.fields)
       });
@@ -21,14 +52,18 @@ $( document ).ready(function() {
           alert( "error" );
     });
   // Update data
-  $.ajax({
-    type: "POST",
-    url: "./update/",
-    data: JSON.stringify(players)
-  })
-    .done(function(data) {
-      console.log(data);
-    });
+  function updateData(players){
+    console.log("in func updateData");
+    change = false;
+    $.ajax({
+      type: "POST",
+      url: "./update/",
+      data: JSON.stringify(players)
+    })
+      .done(function(data) {
+        console.log(data);
+      });
+  }
 
   // csrf code fron django doc
 

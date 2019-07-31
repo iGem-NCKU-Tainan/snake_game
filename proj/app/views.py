@@ -27,6 +27,7 @@ def get_data(request):
 @csrf_exempt
 def update(request):
     if request.is_ajax() and request.POST:
+        Player.objects.all().delete()
         players = json.loads(request.body.decode("utf-8"))
         for player in players:
             Player.objects.create(name=player['name'], team=player['team'], rank=player['rank'], score=player['score'])
