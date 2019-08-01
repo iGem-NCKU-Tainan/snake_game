@@ -119,11 +119,10 @@ function gameStart2(){
 
 function gameStart(){
     document.getElementById('snakeForm').style.display="none"
-    const form=document.forms['snakeFormm']
+    const form=document.forms['snakeForm']
     curr_player.name=form.element.name.value
     curr_player.team=form.element.team.value
     curr_player.score=(this.game.length-3)
-    alert(length)
     new beforeGame
 }
 
@@ -515,6 +514,7 @@ class game{
     
     checkRecord(){
         if ((this.length-3)>localStorage.highScore) {
+            alert("you break the record !")
             // Store
             localStorage.setItem("highScore", (this.length-3))
             // Retrieve
