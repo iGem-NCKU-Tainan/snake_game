@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app.views import snake_game, get_data, update
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('igemNCKU/', snake_game),
     path('igemNCKU/get_data/', get_data),
     path('igemNCKU/update/', update),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

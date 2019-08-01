@@ -25,7 +25,7 @@ SECRET_KEY = 'q)6p!wbp(=0isy52n+$d$6o^nsy9b2i2za*2u+e36@ohuugd1@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['luffy.ee.ncku.edu.tw']
+ALLOWED_HOSTS = ['luffy.ee.ncku.edu.tw', 'elgar.ee.ncku.edu.tw', 'igemncku']
 
 
 # Application definition
