@@ -120,9 +120,10 @@ function gameStart2(){
 function gameStart(){
     document.getElementById('snakeForm').style.display="none"
     const form=document.forms['snakeForm']
-    curr_player.name=form.element.name.value
-    curr_player.team=form.element.team.value
-    curr_player.score=(this.game.length-3)
+    curr_player.name=form.elements.name.value
+    curr_player.team=form.elements.team.value
+    curr_player.score=(length)
+    console.log(typeof length)
     new beforeGame
 }
 
