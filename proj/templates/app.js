@@ -119,16 +119,12 @@ function gameStart2(){
 
 function gameStart(){
     document.getElementById('snakeForm').style.display="none"
-    curr_player.name=form.name.value
-    curr_player.team=form.team.value
-    curr_player.score=(this.length-3)
+    const form=document.forms['snakeFormm']
+    curr_player.name=form.element.name.value
+    curr_player.team=form.element.team.value
+    curr_player.score=(this.game.length-3)
+    alert(length)
     new beforeGame
-}
-
-class scoreboard{
-    constructor(){
-        
-    }
 }
 
 class beforeGame{
@@ -510,6 +506,7 @@ class game{
     restart(){
         this.checkRecord()
         document.getElementById('snakeForm').style.display="block"
+        const length=(this.length-3)
     }
     
     scoreUpdate(){
@@ -518,7 +515,6 @@ class game{
     
     checkRecord(){
         if ((this.length-3)>localStorage.highScore) {
-            alert("you break the record !")
             // Store
             localStorage.setItem("highScore", (this.length-3))
             // Retrieve
