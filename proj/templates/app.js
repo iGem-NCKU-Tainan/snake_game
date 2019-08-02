@@ -111,18 +111,15 @@ var height=800
 var canvas=document.getElementById('snake')
 var ctx=canvas.getContext('2d')
 
-function gameStart2(){
+
+function gameStart(){
     document.getElementById('snakeStory').style.display="none"
     document.getElementById('snakeButton2').style.display="none"
     new beforeGame
 }
 
-function gameStart(){
+function gameRecord(){
     document.getElementById('snakeForm').style.display="none"
-    const form=document.forms['snakeForm']
-    curr_player.name=form.element.name.value
-    curr_player.team=form.element.team.value
-    curr_player.score=(this.game.length-3)
     new beforeGame
 }
 
@@ -431,7 +428,7 @@ class game{
             ctx.strokeRect(this.tail[i].x,this.tail[i].y,40,40)
         }
     }
-    
+    /*清除畫面*/
     clear(){
         ctx.clearRect(0,0,width,height)
     }
@@ -441,12 +438,21 @@ class game{
         this.y += (this.moveY*this.scale)
         
         this.scoreUpdate()
+        this.checkDeath()
         
         if( this.x==this.foodX && this.y==this.foodY ){
             this.length=(this.length+1)
             this.foodeat()
         }
         
+        if (this.checkDeath()){
+            clearInterval(this.gameInterval)
+            clearInterval(this.gameInterval2)
+            this.clear()
+            this.restart()
+            this.checkRecord()
+        }
+
         if(this.x>1160 || this.y>760 || this.x<0 || this.y<0 || this.x==this.tail.x){
             
             clearInterval(this.gameInterval)
@@ -456,9 +462,9 @@ class game{
             this.checkRecord()
         }
     }
-    
+    /*加速器*/
     accelerate(){
-        if(this.length>5){
+        if(this.length>10){
             clearInterval(this.gameInterval)
             
             this.gameInterval2=setInterval(()=>{
@@ -474,21 +480,36 @@ class game{
                 }
                 this.drawSnake()
                 this.addFood()
-            },70)
+            },this.speed-20)
             
         }
         
-    }
-    
-    checkDeath(){
-        for(let i=0;i<this.length;i++){
-            if ((this.tail[i].x==this.x) && (this.tail[i].y==this.y)){
-                this.clear()
-                this.restart()
-                this.checkRecord()
-            }
+        if(this.length>18){
+            clearInterval(this.gameInterval)
+            clearInterval(this.gameInterval2)
+            
+            this.gameInterval3=setInterval(()=>{
+                
+                this.update()
+                this.tail.push({
+                    x:this.x,
+                    y:this.y
+                })
+                
+                if(this.tail.length>this.length){
+                    this.tail.shift()
+                }
+                this.drawSnake()
+                this.addFood()
+            },this.speed-25)
         }
     }
+    /*吃到自己死*/
+    checkDeath(){
+        return this.tail.filter((value)=>{
+            return (this.x==value.x && this.y==value.y)
+        }).length
+        }
     
     /*吃了食物發生的事情*/
     foodeat(){
@@ -504,8 +525,12 @@ class game{
     
     restart(){
         this.checkRecord()
+        var length=this.length
+        const form=document.forms['snakeForm']
+        curr_player.name=form.elements.name.value
+        curr_player.team=form.elements.team.value
+        curr_player.score=(length-3)
         document.getElementById('snakeForm').style.display="block"
-        const length=(this.length-3)
     }
     
     scoreUpdate(){
@@ -514,7 +539,6 @@ class game{
     
     checkRecord(){
         if ((this.length-3)>localStorage.highScore) {
-            alert("you break the record !")
             // Store
             localStorage.setItem("highScore", (this.length-3))
             // Retrieve
@@ -525,6 +549,7 @@ class game{
     keyPress(){
         document.addEventListener("keydown",(event)=>this.onkeydown(event))
     }
+    /*鍵盤控制*/
     onkeydown({keyCode}){
         switch(keyCode){
             
