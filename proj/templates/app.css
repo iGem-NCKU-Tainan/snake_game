@@ -84,5 +84,19 @@ border: 4px dashed #7cf20a;
   display:flex;
   justify-content: center;
 }
+.canvasShake{
+  animation:shake 1s;
+  animation-iteration-count: 1;
+}
 
-
+@keyframes shake{
+  0%,20%,40%,60%,80%{
+      transform: translateX(10px)
+  }
+  10%,30%,50%,70%,90%{
+      transform: translateX(-10px)
+  }
+  100%{
+      transform: translateX(0)
+  }
+}

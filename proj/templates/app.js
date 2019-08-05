@@ -111,6 +111,17 @@ var height=800
 var canvas=document.getElementById('snake')
 var ctx=canvas.getContext('2d')
 
+document.body.classList.toggle('has-focus', document.hasFocus())
+
+window.onfocus = () => {
+	document.body.classList.add('has-focus')
+}
+
+window.onblur = () => {
+	document.body.classList.remove('has-focus')
+}
+
+
 
 function gameStart(){
     document.getElementById('snakeStory').style.display="none"
@@ -428,7 +439,7 @@ class game{
             ctx.strokeRect(this.tail[i].x,this.tail[i].y,40,40)
         }
     }
-    /*清除畫面*/
+    /*清除畫面+搖晃*/
     clear(){
         ctx.clearRect(0,0,width,height)
     }
@@ -522,8 +533,11 @@ class game{
         ctx.fillStyle="#488099"
         ctx.fillRect(this.foodX,this.foodY,40,40)
     }
-    
+    /*retart + record to backend + shake the screen*/
     restart(){
+        setTimeout(()=>{
+            document.getElementById("snake").classList.add("canvasShake")
+        },10)
         this.checkRecord()
         var length=this.length
         const form=document.forms['snakeForm']
@@ -531,6 +545,7 @@ class game{
         curr_player.team=form.elements.team.value
         curr_player.score=(length-3)
         document.getElementById('snakeForm').style.display="block"
+        document.getElementById("snake").classList.remove("canvasShake")
     }
     
     scoreUpdate(){
