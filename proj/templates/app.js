@@ -112,6 +112,7 @@ function gameStart(){
 
 function gameRecord(){
     document.getElementById('snakeForm').style.display="none"
+    $("html").addClass("noscroll")
     new beforeGame
 }
 
@@ -445,7 +446,7 @@ class game{
             this.checkRecord()
         }
 
-        if(this.x>1160 || this.y>660 || this.x<0 || this.y<0 || this.x==this.tail.x){
+        if(this.x>1160 || this.y>560 || this.x<0 || this.y<0 || this.x==this.tail.x){
             
             clearInterval(this.gameInterval)
             clearInterval(this.gameInterval2)
@@ -456,7 +457,7 @@ class game{
     }
     /*加速器*/
     accelerate(){
-        if(this.length>10){
+        if(this.length>12){
             clearInterval(this.gameInterval)
             
             this.gameInterval2=setInterval(()=>{
@@ -476,7 +477,7 @@ class game{
             
         }
         
-        if(this.length>18){
+        if(this.length>22){
             clearInterval(this.gameInterval)
             clearInterval(this.gameInterval2)
             
