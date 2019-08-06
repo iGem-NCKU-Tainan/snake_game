@@ -98,7 +98,7 @@ const key_right=39
 const key_down=40
 
 var width=1200
-var height=800
+var height=600
 
 var canvas=document.getElementById('snake')
 var ctx=canvas.getContext('2d')
@@ -456,7 +456,7 @@ class game{
             this.checkRecord()
         }
 
-        if(this.x>1160 || this.y>760 || this.x<0 || this.y<0 || this.x==this.tail.x){
+        if(this.x>1160 || this.y>660 || this.x<0 || this.y<0 || this.x==this.tail.x){
             
             clearInterval(this.gameInterval)
             clearInterval(this.gameInterval2)
