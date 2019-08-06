@@ -45,7 +45,7 @@ $( document ).ready(function() {
     change = false;
     $("tbody").html("");
     players.forEach(function(element) {
-	$("tbody").append('<tr><td><th scope="row">'+element.rank+'</th><td>'+element.name+'</td><td>'+element.team+'</td><td>'+element.score+'</td></tr></td></tr>');
+	$("tbody").append('<tr><th scope="row">'+element.rank+'</th><td>'+element.name+'</td><td>'+element.team+'</td><td>'+element.score+'</td></tr>');
     });
     $.ajax({
       type: "POST",
