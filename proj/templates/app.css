@@ -10,6 +10,7 @@ border: 4px dashed black;
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
+  margin-top:10px;
 }
 
 .scoreSpan{
@@ -101,4 +102,10 @@ border: 4px dashed black;
   100%{
       transform: translateX(0)
   }
+}
+
+html.noscroll{
+  position:fixed;
+  overflow-y:scroll;
+  width:100%;
 }
