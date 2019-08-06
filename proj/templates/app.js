@@ -7,33 +7,23 @@ var curr_player = {}
 var change = false;
 $( document ).ready(function() {
   /*Compare*/
-  
   $("#snakeButton").click(function() {
-    // if(players.length<10){
-    //   players.push({"name":"", "team":"", "score":-1, "rank":players.length+1});
-    // }
-    for(let i=players.length-1;i>=0;i--){
-      console.log(i);
-      console.log(players.length);
-      if(curr_player.score>players[i].score){
-        change = true;
-        if(i!=9){
-          players[i+1] = players[i];
-        }
-        players[i].name = curr_player.name;
-        players[i].team = curr_player.team;
-        players[i].score = curr_player.score;
-      }
+    if(players.length<10|| curr_player.score> players[9].score){
+	change = true;
     }
-    if(players.length<10 && !change){
-      change = true;
-      players.push({"name":curr_player.name, "team":curr_player.team, "score":curr_player.score, "rank":players.length+1});
+    players.push({"name":curr_player.name, "team":curr_player.team, "score":curr_player.score, "rank":players.length+1});
+    players.sort(function (a, b) {
+  	return b.score - a.score;
+    });
+    if(players.length>10){
+	players.pop();
     }
-    console.log(change);
+    for(let i=0;i<players.length;i++){
+	players[i].rank=i+1;
+    }
     if(change){
       updateData(players);
     }
-    console.log(players);
   });
   /* Ajax */ 
   /* get player data */
@@ -46,15 +36,17 @@ $( document ).ready(function() {
       data.forEach(function(element) {
         players.push(element.fields)
       });
-      console.log(players)
     })
     .fail(function() {
           alert( "error" );
     });
   // Update data
   function updateData(players){
-    console.log("in func updateData");
     change = false;
+    $("tbody").html("");
+    players.forEach(function(element) {
+	$("tbody").append('<tr><td><th scope="row">'+element.rank+'</th><td>'+element.name+'</td><td>'+element.team+'</td><td>'+element.score+'</td></tr></td></tr>');
+    });
     $.ajax({
       type: "POST",
       url: "./update/",
