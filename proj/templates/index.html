@@ -2,43 +2,43 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Snake Game-iGEM NCKU 2019 </title>
-    <LINK rel="SHORTCUT ICON" href="https://s2.aconvert.com/convert/p3r68-cdx67/cbk9u-xotb4-001.ico"> 
+<head>
+  <title>Snake Game-iGEM NCKU 2019 </title>
+  <LINK rel="SHORTCUT ICON" href="https://s2.aconvert.com/convert/p3r68-cdx67/cbk9u-xotb4-001.ico"> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" href="{% static "app.css" %}">
   </head>
   <body>
-      <div class="snakeScore">
-          <div class="canvasSnake">
-              <span class="scoreSpan">Current score:<strong id="current">&nbsp 0</strong></span>
-              <sapn class="scoreSpan">Record:<strong id="recordScore">&nbsp 0</strong></sapn>
-          </div>
+    <div class="snakeScore">
+      <div class="canvasSnake">
+        <span class="scoreSpan">Current score:<strong id="current">&nbsp 0</strong></span>
+        <sapn class="scoreSpan">Record:<strong id="recordScore">&nbsp 0</strong></sapn>
       </div>
-      <div class="canvasSnake2">
-          <canvas id="snake" width="900" height="600"></canvas>
-          <h3 id=snakeStory>&nbsp &nbsp &nbspDisplay 是設計 CSS 版面配置中最重要的屬性，每個 HTML 元素都有一個預設的 display 值，不同的元素屬性會有不同的預設值。
-              大部分元素的 display 屬性，預設值通常是 block 或 inline 其中一個。若該元素的 display 屬性被標示為 block 就被稱為「區塊元素」
-              ，若被標示為 inline 就稱為「行內元素」。</h3>
-              <input type="button" onclick="gameStart()" id="snakeButton2" value="Start">
-              <form name="snakeFormm" id="snakeForm">
-              Team name:<br>
-              <input type="text" name="team" value="NCKU">
-              <br>
-              <br>
-              ID:
-              <br>
-              <input type="text" name="name" value="You Never Get Me">
-              <br>
-              <br>
-              <input type="button" onclick="gameRecord()" id="snakeButton" value="Submit">
-          </form>
+    </div>
+    <div class="canvasSnake2">
+      <canvas id="snake" width="1200" height="800"></canvas>
+      <h3 id=snakeStory>&nbsp &nbsp &nbspDisplay 是設計 CSS 版面配置中最重要的屬性，每個 HTML 元素都有一個預設的 display 值，不同的元素屬性會有不同的預設值。
+        大部分元素的 display 屬性，預設值通常是 block 或 inline 其中一個。若該元素的 display 屬性被標示為 block 就被稱為「區塊元素」
+        ，若被標示為 inline 就稱為「行內元素」。</h3>
+        <input type="button" onclick="gameStart()" id="snakeButton2" value="Start">
+        <form name="snakeFormm" id="snakeForm">
+          Team name:<br>
+          <input type="text" name="team" value="NCKU">
+          <br>
+          <br>
+          ID:
+          <br>
+          <input type="text" name="name" value="You Never Get Me">
+          <br>
+          <br>
+          <input type="button" onclick="gameRecord()" id="snakeButton" value="Submit">
+        </form>
       </div>
       <div id="divImg">
-          <img src="C:\Users\JOE\Desktop\網頁檔案\fb背景.jpg" id="snakeImg" style="width:80%;height:80%;">
+        <img src="C:\Users\JOE\Desktop\網頁檔案\fb背景.jpg" id="snakeImg" style="width:80%;height:80%;">
       </div>
-            <!--下面是排行榜-->
+      <!--下面是排行榜-->
       <table id="leaderboard" class="table table-striped">
         <thead class="thead-dark">
           <tr>
@@ -59,12 +59,12 @@
           {% endfor %}
         </tbody>
       </table>
-                                                                                                                                                          
-  
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    {% load static %}
-    <script src="{% static "app.js" %}"></script>
-  </body>
-</html>
+      
+      
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      {% load static %}
+      <script src="{% static "app.js" %}"></script>
+    </body>
+    </html>
