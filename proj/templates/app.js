@@ -8,6 +8,8 @@ var change = false;
 $( document ).ready(function() {
   /*Compare*/
   $("#snakeButton").click(function() {
+    curr_player.name=$("input[name='name']").val();
+    curr_player.team=$("input[name='team']").val();
     if(players.length<10|| curr_player.score> players[9].score){
 	change = true;
     }
@@ -522,9 +524,9 @@ class game{
         },10)
         this.checkRecord()
         var length=this.length
-        const form=document.forms['snakeForm']
+        /*const form=document.forms['snakeForm']
         curr_player.name=form.elements.name.value
-        curr_player.team=form.elements.team.value
+        curr_player.team=form.elements.team.value*/
         curr_player.score=(length-3)
         $("html").removeClass("noscroll")
         document.getElementById('snakeForm').style.display="block"
