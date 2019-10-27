@@ -10,23 +10,29 @@ $( document ).ready(function() {
   $("#snakeButton").click(function() {
     curr_player.name=$("input[name='name']").val();
     curr_player.team=$("input[name='team']").val();
+    console.log(curr_player);
+    refresh();
+  });
+  function compare(){
     if(players.length<10|| curr_player.score> players[9].score){
-	change = true;
+        change = true;
     }
+    console.log(players);
+    console.log(curr_player);
     players.push({"name":curr_player.name, "team":curr_player.team, "score":curr_player.score, "rank":players.length+1});
     players.sort(function (a, b) {
   	return b.score - a.score;
     });
     if(players.length>10){
-	players.pop();
+        players.pop();
     }
     for(let i=0;i<players.length;i++){
-	players[i].rank=i+1;
+        players[i].rank=i+1;
     }
     if(change){
-      updateData(players);
+        updateData(players);
     }
-  });
+  }
   /* Ajax */ 
   /* get player data */
   $.ajax({
@@ -42,6 +48,26 @@ $( document ).ready(function() {
     .fail(function() {
           alert( "error" );
     });
+//refresh data
+function refresh(){
+    $.ajax({
+        type: "GET",
+        url: "./get_data/",
+        dataType: 'json'
+      })
+        .done(function(data) {
+          players.splice(0, players.length)
+            data.forEach(function(element) {
+            players.push(element.fields)
+          });
+          console.log(players)
+            console.log(curr_player)
+          compare();
+        })
+        .fail(function() {
+              alert( "error" );
+        });
+}
   // Update data
   function updateData(players){
     change = false;
